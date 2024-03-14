@@ -1,4 +1,12 @@
+import { mint } from './Web3Service';
+
 function App() {
+  function onBtnClick() {
+    mint()
+      .then(() => console.log())
+      .catch((err) => alert(err.message));
+  }
+
   return (
     <>
       <div className="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
@@ -29,6 +37,7 @@ function App() {
           <p className="lead">
             <a
               href="#"
+              onClick={onBtnClick}
               className="btn btn-lg btn-light fw-bold border-white bg-white"
             >
               <img src="/assets/metamask.svg" alt="MetaMask logo" width={48} />
