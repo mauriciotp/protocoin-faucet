@@ -1,10 +1,15 @@
+import { useState } from 'react';
+
 import { mint } from './Web3Service';
 
 function App() {
+  const [message, setMessage] = useState('');
+
   function onBtnClick() {
+    setMessage('Requesting your tokens...wait...');
     mint()
-      .then(() => console.log())
-      .catch((err) => alert(err.message));
+      .then((tx) => setMessage('Your tokens were sent. Tx: ' + tx))
+      .catch((err) => setMessage(err.message));
   }
 
   return (
@@ -44,6 +49,7 @@ function App() {
               Connect MetaMask
             </a>
           </p>
+          <p className="lead text-break">{message}</p>
         </main>
 
         <footer className="mt-auto text-white-50">
