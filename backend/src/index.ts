@@ -1,6 +1,8 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
+import { mintAndTransfer } from './Web3Provider';
+
 import express, { Request, Response, NextFunction } from 'express';
 import morgan from 'morgan';
 
@@ -13,7 +15,12 @@ app.use(morgan('tiny'));
 app.post(
   '/mint/:wallet',
   async (req: Request, res: Response, next: NextFunction) => {
-    res.json(true);
+    try {
+      const tx = await mintAndTransfer(req.params.wallet);
+      res.json(tx);
+    } catch (err) {
+      res.status(500).json(err);
+    }
   }
 );
 
