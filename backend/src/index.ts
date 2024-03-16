@@ -12,14 +12,22 @@ const app = express();
 
 app.use(morgan('tiny'));
 
+import cors from 'cors';
+app.use(
+  cors({
+    origin: process.env.CORS_ORIGIN || '*',
+  })
+);
+
 app.post(
   '/mint/:wallet',
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const tx = await mintAndTransfer(req.params.wallet);
       res.json(tx);
-    } catch (err) {
-      res.status(500).json(err);
+    } catch (err: any) {
+      console.log(err);
+      res.status(500).json(err.message);
     }
   }
 );

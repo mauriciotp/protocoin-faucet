@@ -9,7 +9,9 @@ function App() {
     setMessage('Requesting your tokens...wait...');
     mint()
       .then((tx) => setMessage('Your tokens were sent. Tx: ' + tx))
-      .catch((err) => setMessage(err.message));
+      .catch((err) =>
+        setMessage(err.response ? err.response.data : err.message)
+      );
   }
 
   return (
@@ -36,7 +38,7 @@ function App() {
         <main className="px-3">
           <h1>Get you ProtoCoins</h1>
           <p className="lead">
-            Once a day, earn a 1.000 coins for free just connecting your
+            Once a day, earn a 10.000 coins for free just connecting your
             Metamask below.
           </p>
           <p className="lead">
@@ -46,7 +48,7 @@ function App() {
               className="btn btn-lg btn-light fw-bold border-white bg-white"
             >
               <img src="/assets/metamask.svg" alt="MetaMask logo" width={48} />
-              Connect MetaMask
+              Get tokens
             </a>
           </p>
           <p className="lead text-break">{message}</p>
